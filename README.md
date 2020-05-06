@@ -299,14 +299,35 @@ Assumes datsets are stored on s3 bucket.
    - navigate to security groups of the node and add permissions for ssh on port 22 for your ip
    - open puttygen and create ppk file from ec2 key pair pem file created during cluster creation process.
    - connect to ec2 node with putty session.
-   - using winscp/filezilla copy the winepredictionmodel.jar file to ec2 instance.
-  
+   - using winscp/filezilla copy the winepredictionmodel.jar, dataset folder with trained model to ec2 instance.
+   - Follow the instructions from the following blog post [Install Apache Spark on EC2 instances](https://maelfabien.github.io/bigdata/Spark/#2-configuration-of-your-master-nodes) and setup spark environment
+  -
 ### Running Prediction Application
    - java -DBUCKET_NAME=dataset/ -jar wineprediction-1.0.jar for running the program with shipped dataset.
    - java -DBUCKET_NAME=  -DACCESS_KEY_ID= -DSECRET_KEY= -jar wineprediction-1.0.jar for running the program with s3 dataset.
    - once the program is successfully completed it prints the accuracy of model and f1 score on the console.
 
-
+```
+sudo yum list | grep openjdk
+sudo yum install java-1.8.0-openjdk.x86_64 -y
+sudo update-alternatives --config java
+wget http://apache.mirrors.hoobly.com/spark/spark-2.4.5/spark-2.4.5-bin-hadoop2.7.tgz
+tar -xf spark-2.4.5-bin-hadoop2.7.tgz 
+rm spark-2.4.5-bin-hadoop2.7.tgz 
+ sudo update-alternatives --config java
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64/jre
+export JRE_HOME=$JAVA_HOME/jre
+export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
+export SPARK_HOME=/home/ec2-user/
+export SPARK_HOME=/home/ec2-user/spark-2.4.5-bin-hadoop2.7
+vi ~/.bashrc
+source ~/.bashrc
+$SPARK_HOME/sbin/start-master.sh
+$SPARK_HOME/sbin/start-slave.sh spark://ip-172-31-93-117.ec2.internal:7077
+$SPARK_HOME/bin/spark-submit winequalityprediction-1.0.jar
+$SPARK_HOME/sbin/stop-slave.sh spark://ip-172-31-93-117.ec2.internal:7077
+$SPARK_HOME/sbin/stop-master.sh
+```
   
 [aws]: http://aws.amazon.com/
 [awsconsole]: https://console.aws.amazon.com
