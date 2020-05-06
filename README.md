@@ -6,9 +6,10 @@ This is the code repository for developing machine learning application to predi
 ## Overview
 * [Setup Instructions and Navigation](#setup-instructions-and-navigation)
 * [Running Examples](#running-examples)
-* [Course Overview](#course-overview)
-  - [Course Steps](#step-list)
-  - [Expectations](#expectations)
+* [Parallel training implementation](#parallel-training-implementation)
+  - [EMR Cluster Setup](#emr-cluster-setup)
+  - [Submitting Spark Job For Parallel Training](#submitting-spark-job-for-parallel-training)
+  - [Verifying Model Output On S3 Bucket](#submitting-spark-job-for-parallel-training)
 
 ## Setup Instructions and Navigation
 
@@ -223,7 +224,45 @@ docker image remove 3094afcbdf12
 docker inspect <image>
 docker run -dit openjdk:8-jdk-alpine
 ```
-	
+## Parallel training implementation
+This project is implemented with Spark data frames api and MLib libraries, with this Native spark implementation application is automatically parallelized and distributed natively.
+<br />
+Partitions and caching is implemented in code to speed up the process.
+
+- Login into AWS Console.
+- Create S3 Bucket
+   - upload the TestDataset.csv, TrainingDataset.csv, and  ValidationDataset.csv
+   
+### EMR Cluster Setup
+- Search for EMR Service & Create Cluster.
+   - Provide the cluster name
+   - Launch Mode cluster
+   - Vendor Amazon
+   - Release emr-5.3.1
+   - Select spark application radio button
+   - Hardware Configurations 
+     - select the instance type
+     - number of instances to train the model
+   - select the ec2 key pair/ generate one to access the master node.
+   - click on create cluster.
+### Submitting Spark Job For Parallel Training
+- Verify Successful Cluster Setup process on Aws console.
+   - copy the dns name fo the cluster.
+   - navigate to security groups of the master node and add permissions for ssh on port 22 for your ip
+   - open puttygen and create ppk file from ec2 key pair pem file created during cluster creation process.
+   - connect to master node with putty session.
+   - using winscp/filezilla copy the winepredictiontrainmodel.jar file to master node.
+   - aws s3 cp s3://bucket-name/*.csv files to local directory on master node.
+   - spark-submit winepredictiontrainmodel.jar
+   - once the model training is successfully completed it prints the accuracy of model and f1 score on the console.
+   - and uploads the trained model to s3 bucket.
+   
+### Verifying Model Output On S3 Bucket
+- Verify LogicRegressionModel is created on S3 bucket on Aws console.
+
+
+  
+  
 [aws]: http://aws.amazon.com/
 [awsconsole]: https://console.aws.amazon.com
 [hadoop]: https://hadoop.apache.org/docs/r2.7.3/hadoop-aws/dependency-analysis.html
