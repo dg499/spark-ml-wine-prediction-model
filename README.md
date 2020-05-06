@@ -3,6 +3,13 @@
 ## Programming Assignment 2
 This is the code repository for developing machine learning application to predict the quality of wine using Spark MLib on AWS Cloud Platform. It contains all the supporting project files necessary to build, train and predict the wine quality from start to finish.
 
+## Overview
+* [Setup Instructions and Navigation](#setup-instructions-and-navigation)
+* [Running Examples](#running-examples)
+* [Course Overview](#course-overview)
+  - [Course Steps](#step-list)
+  - [Expectations](#expectations)
+
 ## Setup Instructions and Navigation
 
 ### Assumed Knowledge
@@ -15,9 +22,9 @@ To fully understand and work with the code, you will need:<br/>
 ### Technical Requirements
 
 This project is built on following software requirements: <br/> <br/>
-	•	[IntelliJ IDEA][intellij] / [Eclipse][eclipse] / [VSCode][vscode] / [STS][sts]<br/>
-	•	[Java JDK][jdk]<br/>
-	•	[Scala SDK][scala]<br/>
+  •	[IntelliJ IDEA][intellij] / [Eclipse][eclipse] / [VSCode][vscode] / [STS][sts]<br/>
+  •	[Java JDK][jdk]<br/>
+  •	[Scala SDK][scala]<br/>
   •	[Apache Spark][spark]<br/>
   •	[Maven][maven]<br/>
   •	[Docker][docker]<br/>
@@ -121,9 +128,43 @@ This project has been tested on the following system configuration:<br/>
 	•	Hard Disk Space: 200GB<br/>
 	•	Video Card: 8260MB Video Memory<br/>
   
+## Running Examples
 
+- Download the zip or clone the Git repository.
+- Unzip the zip file (if you downloaded one)
+- Open Command Prompt and Change directory (cd) to folder containing pom.xml
+- run mvn package
+- Open Eclipse 
+   - File -> Import -> Existing Maven Project -> Navigate to the folder where you unzipped the zip
+   - Select the right project
+   - Finish importing into eclipse.
+- Right Click on the project and select maven and update the project.
 
-  
+### Running with local dataset on local machine:
+- Select TrainAndPersistWineQualityDataModel.java file  from package explorer and Run as Java Application
+- From the eclipse menu Run -> Run configurations -> select Java Application from navigation tree -> on the right pane
+select Arguments tab -> under vm arguments paste the following configuration for getting training, validation and testing dataset from local file system and saving model to dataset folder. click on Apply and Run the program.
+
+```
+-DBUCKET_NAME=dataset/
+```
+### Running with S3 dataset on local machine:
+- From the eclipse menu Run -> Run configurations -> select Java Application from navigation tree -> select TrainAndPersistWineQualityDataModel -> right click and duplicate -> select the duplicated -> on the right pane
+select Arguments tab -> under vm arguments paste the following configuration for getting training, validation and testing dataset from aws s3 bucket and saving model to s3 bucket. click on Apply and Run the program.
+TrainAndPersistWineQualityDataModel
+```
+-DBUCKET_NAME=  -DACCESS_KEY_ID= -DSECRET_KEY=
+```
+
+### note ###
+- This project assumes the file names used for training , validation and testing is constant, bucket names are dynamic.
+  Folder strcture should look like below.
+  * dataset<br/>
+    • TestDataset.csv <br/>
+    • TrainingDataset.csv <br/>
+    • ValidationDataset.csv<br/>
+    
+	
 [aws]: http://aws.amazon.com/
 [awsconsole]: https://console.aws.amazon.com
 [hadoop]: https://hadoop.apache.org/docs/r2.7.3/hadoop-aws/dependency-analysis.html
@@ -138,3 +179,5 @@ This project has been tested on the following system configuration:<br/>
 [vscode]: https://code.visualstudio.com/download
 [sts]: https://spring.io/tools
 [docs-signup]: http://docs.aws.amazon.com/java-sdk/v1/developer-guide/signup-create-iam-user.html
+
+
