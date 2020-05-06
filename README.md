@@ -3,6 +3,15 @@
 ## Programming Assignment 2
 This is the code repository for developing machine learning application to predict the quality of wine using Spark MLib on AWS Cloud Platform. It contains all the supporting project files necessary to build, train and predict the wine quality from start to finish.
 
+## Source Control
+
+* [Git](https://github.com/dg499/spark-ml-wine-prediction-model)
+
+## Docker Images
+
+* [Preduction](https://hub.docker.com/repository/docker/dg499/spark-ml-prediction)
+* [Training](https://hub.docker.com/repository/docker/dg499/winequalitydatset)
+
 ## Overview
 * [Setup Instructions and Navigation](#setup-instructions-and-navigation)
 * [Running Examples](#running-examples)
