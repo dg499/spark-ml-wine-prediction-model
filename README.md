@@ -10,6 +10,9 @@ This is the code repository for developing machine learning application to predi
   - [EMR Cluster Setup](#emr-cluster-setup)
   - [Submitting Spark Job For Parallel Training](#submitting-spark-job-for-parallel-training)
   - [Verifying Model Output On S3 Bucket](#submitting-spark-job-for-parallel-training)
+* [Single Machine Prediction Application](#single-machine-prediction-application)
+  - [EC2 Setup](#ec2-setup)
+  - [Running Prediction Application](#running-prediction-application)
 
 ## Setup Instructions and Navigation
 
@@ -260,8 +263,26 @@ Partitions and caching is implemented in code to speed up the process.
 ### Verifying Model Output On S3 Bucket
 - Verify LogicRegressionModel is created on S3 bucket on Aws console.
 
+## Single Machine Prediction Application
+Open Command Prompt and Change directory (cd) to folder containing pom.xml <br />
+mvn package<br />
+wine prediction jar is built on with all the dependencies necessary for running the prediction application.<br />
+Assumes datsets are stored on s3 bucket.
 
+### EC2 Setup
+  - Follow the [AWS EC2](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html) documentation, create and launch the instance.
+   - copy the public ip of ec2 instance from previous step.
+   - navigate to security groups of the node and add permissions for ssh on port 22 for your ip
+   - open puttygen and create ppk file from ec2 key pair pem file created during cluster creation process.
+   - connect to ec2 node with putty session.
+   - using winscp/filezilla copy the winepredictionmodel.jar file to ec2 instance.
   
+### Running Prediction Application
+   - java -DBUCKET_NAME=dataset/ -jar wineprediction-1.0.jar for running the program with shipped dataset.
+   - java -DBUCKET_NAME=  -DACCESS_KEY_ID= -DSECRET_KEY= -jar wineprediction-1.0.jar for running the program with s3 dataset.
+   - once the program is successfully completed it prints the accuracy of model and f1 score on the console.
+
+
   
 [aws]: http://aws.amazon.com/
 [awsconsole]: https://console.aws.amazon.com
