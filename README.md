@@ -164,6 +164,65 @@ TrainAndPersistWineQualityDataModel
     • TrainingDataset.csv <br/>
     • ValidationDataset.csv<br/>
     
+### Running with local dataset on docker container:
+
+```
+Open Command Prompt and Change directory (cd) to folder containing pom.xml
+
+mvn package
+
+verify the jar builded working properly.
+
+java -DBUCKET_NAME=dataset/ -jar target/winequalitydatset-1.0.jar
+
+docker build -t dg499/spark-prediction:1 . 
+
+docker image ls
+
+docker run --rm -m 4g -e BUCKET_NAME=dataset/ dg499/spark-prediction:1
+
+docker login
+
+docker push <image>
+
+```
+
+
+
+### Running with s3 dataset on docker container:
+
+```
+Open Command Prompt and Change directory (cd) to folder containing pom.xml
+
+mvn package
+
+sportify plugin in pom.xml automatically builds and creates the docker image with project-name:version 
+under my user name dg499.
+
+docker image ls
+
+docker run --rm -m 4g -e BUCKET_NAME=s3a://wine-quality/ -e ACCESS_KEY_ID=AKI -e SECRET_KEY=kewj9g dg499/spark-prediction:1
+
+docker login
+
+docker push <image>
+
+```
+
+#### useful docker commands
+```
+docker login
+docker version
+docker help
+docker image ls
+docker container ls -a
+docker container logs c165f459e7d7
+docker container rm c165f459e7d7
+docker container prune
+docker image remove 3094afcbdf12
+docker inspect <image>
+docker run -dit openjdk:8-jdk-alpine
+```
 	
 [aws]: http://aws.amazon.com/
 [awsconsole]: https://console.aws.amazon.com
