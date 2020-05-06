@@ -328,6 +328,10 @@ $SPARK_HOME/bin/spark-submit winequalityprediction-1.0.jar
 $SPARK_HOME/sbin/stop-slave.sh spark://ip-172-31-93-117.ec2.internal:7077
 $SPARK_HOME/sbin/stop-master.sh
 ```
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/ec2.png "ec2 prediction f1 score and accuracy")](https://github.com/dg499/spark-ml-wine-prediction-model/)
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/ec2-output.png "ec2 prediction f1 score and accuracy")](https://github.com/dg499/spark-ml-wine-prediction-model/)
   
 [aws]: http://aws.amazon.com/
 [awsconsole]: https://console.aws.amazon.com
