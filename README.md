@@ -5,12 +5,12 @@ This is the code repository for developing machine learning application to predi
 
 ## Source Control
 
-* [Git](https://github.com/dg499/spark-ml-wine-prediction-model)
+* [Git URL](https://github.com/dg499/spark-ml-wine-prediction-model) 
 
 ## Docker Images
 
-* [Preduction](https://hub.docker.com/repository/docker/dg499/spark-ml-prediction)
-* [Training](https://hub.docker.com/repository/docker/dg499/winequalitydatset)
+* [Prediction Image](https://hub.docker.com/repository/docker/dg499/spark-ml-prediction)
+* [Training Image](https://hub.docker.com/repository/docker/dg499/winequalitydatset)
 
 ## Overview
 * [Setup Instructions and Navigation](#setup-instructions-and-navigation)
