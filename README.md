@@ -5,12 +5,12 @@ This is the code repository for developing machine learning application to predi
 
 ## Source Control
 
-* [Git URL](https://github.com/dg499/spark-ml-wine-prediction-model) 
+* [Git URL](https://github.com/dg499/spark-ml-wine-prediction-model) - https://github.com/dg499/spark-ml-wine-prediction-model
 
 ## Docker Images
 
-* [Prediction Image](https://hub.docker.com/repository/docker/dg499/spark-ml-prediction)
-* [Training Image](https://hub.docker.com/repository/docker/dg499/winequalitydatset)
+* [Prediction Image](https://hub.docker.com/repository/docker/dg499/spark-ml-prediction) - https://hub.docker.com/repository/docker/dg499/spark-ml-prediction
+* [Training Image](https://hub.docker.com/repository/docker/dg499/winequalitydatset) - https://hub.docker.com/repository/docker/dg499/winequalitydatset
 
 ## Overview
 * [Setup Instructions and Navigation](#setup-instructions-and-navigation)
@@ -161,6 +161,7 @@ select Arguments tab -> under vm arguments paste the following configuration for
 ```
 -DBUCKET_NAME=dataset/
 ```
+
 ### Running with S3 dataset on local machine:
 - From the eclipse menu Run -> Run configurations -> select Java Application from navigation tree -> select TrainAndPersistWineQualityDataModel -> right click and duplicate -> select the duplicated -> on the right pane
 select Arguments tab -> under vm arguments paste the following configuration for getting training, validation and testing dataset from aws s3 bucket and saving model to s3 bucket. click on Apply and Run the program.
@@ -168,6 +169,8 @@ TrainAndPersistWineQualityDataModel
 ```
 -DBUCKET_NAME=  -DACCESS_KEY_ID= -DSECRET_KEY=
 ```
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/running-jar-local-and-s3.png "local instance prediction f1 score and accuracy")](https://github.com/dg499/spark-ml-wine-prediction-model/)
 
 ### note ###
 - This project assumes the file names used for training , validation and testing is constant, bucket names are dynamic.
@@ -200,6 +203,7 @@ docker push <image>
 
 ```
 
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/docker-running-local.png "docker local instance prediction f1 score and accuracy")](https://github.com/dg499/spark-ml-wine-prediction-model/)
 
 
 ### Running with s3 dataset on docker container:
@@ -221,6 +225,8 @@ docker login
 docker push <image>
 
 ```
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/docker-running-s3.png "docker local instance prediction f1 score and accuracy wihth S3 bucket data")](https://github.com/dg499/spark-ml-wine-prediction-model/)
 
 #### useful docker commands
 ```
@@ -257,6 +263,9 @@ Partitions and caching is implemented in code to speed up the process.
      - number of instances to train the model
    - select the ec2 key pair/ generate one to access the master node.
    - click on create cluster.
+   
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/emr-cluster.png "EMR Setup")](https://github.com/dg499/spark-ml-wine-prediction-model/)
+
 ### Submitting Spark Job For Parallel Training
 - Verify Successful Cluster Setup process on Aws console.
    - copy the dns name fo the cluster.
@@ -268,9 +277,15 @@ Partitions and caching is implemented in code to speed up the process.
    - spark-submit winepredictiontrainmodel.jar
    - once the model training is successfully completed it prints the accuracy of model and f1 score on the console.
    - and uploads the trained model to s3 bucket.
-   
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/emr-submit-job.png "EMR Submit Job Step")](https://github.com/dg499/spark-ml-wine-prediction-model/)
+
 ### Verifying Model Output On S3 Bucket
 - Verify LogicRegressionModel is created on S3 bucket on Aws console.
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/emr-spark-job-history.png "EMR Job History ")](https://github.com/dg499/spark-ml-wine-prediction-model/)
+
+[![Image](https://github.com/dg499/spark-ml-wine-prediction-model/blob/master/images/s3-bucket.png "EMR Job History ")](https://github.com/dg499/spark-ml-wine-prediction-model/)
 
 ## Single Machine Prediction Application
 Open Command Prompt and Change directory (cd) to folder containing pom.xml <br />
